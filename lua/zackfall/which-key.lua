@@ -80,7 +80,7 @@ which_key.register({
   o = { "<cmd>only<CR>", "Tab only" },
   y = "which_key_ignore",
   f = "which_key_ignore",
-  c = "which_key_ignore",
+  c = { "<cmd>ToggleTerm<CR>", "Toggle the Term mode" },
   a = "which_key_ignore",
   j = "which_key_ignore",
   k = "which_key_ignore",
