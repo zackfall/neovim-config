@@ -23,7 +23,7 @@ dashboard.section.buttons.val = {
 }
 
 local function footer()
-	return "damrah.netlify.app"
+	return "zackfall.vercel.app"
 end
 
 dashboard.section.footer.val = footer()
