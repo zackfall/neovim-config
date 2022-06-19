@@ -64,6 +64,7 @@ return packer.startup(function(use)
   use { 'dylanaraps/wal.vim' }
   use { 'lilydjwg/colorizer' }
   use { 'navarasu/onedark.nvim' }
+  use { 'frenzyexists/aquarium-vim' }
 
   -- CMP plugins
   use { 'hrsh7th/nvim-cmp' }
@@ -173,6 +174,11 @@ return packer.startup(function(use)
   use { 'haya14busa/is.vim' }
   use { 'mhinz/vim-grepper' }
   use { 'folke/todo-comments.nvim' }
+  use {
+    'xeluxee/competitest.nvim',
+    requires = 'MunifTanjim/nui.nvim',
+    config = function() require'competitest'.setup() end
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
