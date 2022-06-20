@@ -19,6 +19,13 @@ if not icons_status then
 end
 
 dap.defaults.fallback.terminal_win_cmd = '80vsplit new'
+
+dap.adapters.lldb = {
+  type = "executable",
+  command = "/usr/bin/lldb-vscode",
+  name = "lldb"
+}
+
 dap.configurations.lua = {
   {
     type = "nlua",
@@ -37,6 +44,27 @@ dap.configurations.lua = {
       return val
     end,
   },
+}
+
+dap.configurations.rust = {
+  {
+    name = "Launch",
+    type = "lldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input("Path to execute: ", vim.fn.getcwd() .. "/", "file")
+    end,
+    cwd = "${workspaceFolder}",
+    stopOnEntry = false,
+    args = {},
+    env = function()
+      local variables = {}
+      for k, v in pairs(vim.fn.environ()) do
+        table.insert(variables, string.format("%s=%s", k, v))
+      end
+      return variables
+    end
+  }
 }
 
 vim.g.dap_virtual_text = true
