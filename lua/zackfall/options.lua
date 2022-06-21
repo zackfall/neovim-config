@@ -39,6 +39,8 @@ for k, v in pairs(options) do
 end
 
 vim.cmd[[
+filetype plugin indent on
+syntax enable
 set whichwrap+=<,>,[,],h,l
 set iskeyword+=-
 set formatoptions-=cro
