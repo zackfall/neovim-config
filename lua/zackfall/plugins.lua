@@ -154,7 +154,7 @@ return packer.startup(function(use)
 
   -- Other
   use { 'lukas-reineke/indent-blankline.nvim' }
-  use { 'github/copilot.vim' } -- AI suggestions
+  -- use { 'github/copilot.vim' } -- AI suggestions
   use { 'folke/zen-mode.nvim' } -- Distraction free writing
   use { 'folke/twilight.nvim' } -- Highlight certain lines
   use { 'scrooloose/nerdcommenter' }
