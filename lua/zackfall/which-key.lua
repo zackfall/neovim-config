@@ -136,7 +136,7 @@ which_key.register({
 		c = { "<cmd>Git cm<CR>", "Commit" },
 		p = { "<cmd>Git push<CR>", "Push" },
 		P = { "<cmd>Git pull<CR>", "Pull" },
-		l = { "<cmd>Git lg<CR>", "Log" },
+		l = { "<cmd>Git log<CR>", "Log" },
 		L = { "<cmd>LazyGit<CR>", "LazyGit" },
 		f = { "<cmd>LazyGitFilter<CR>", "LazyGitFilter" },
 	},
