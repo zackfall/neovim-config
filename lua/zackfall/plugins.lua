@@ -53,7 +53,6 @@ return packer.startup(function(use)
   use { 'moll/vim-bbye' }
   use { 'nvim-lualine/lualine.nvim' }
   use { 'akinsho/toggleterm.nvim' }
-  use { 'ahmedkhalf/project.nvim' }
   use { 'lewis6991/impatient.nvim' }
   use { 'goolord/alpha-nvim' }
   use { 'antoinemadec/FixCursorHold.nvim' }
@@ -178,6 +177,21 @@ return packer.startup(function(use)
     'xeluxee/competitest.nvim',
     requires = 'MunifTanjim/nui.nvim',
     config = function() require'competitest'.setup() end
+  }
+  use {
+    'ahmedkhalf/project.nvim',
+    config = function()
+      require("project_nvim").setup {
+        manual_mode = false,
+        detection_methods = { "lsp", "pattern" },
+        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "Cargo.toml" },
+        ignore_lsp = {},
+        exclude_dirs = {},
+        show_hidden = false,
+        silent_chdir = true,
+        datapath = vim.fn.stdpath("data")
+      }
+    end
   }
 
   -- Automatically set up your configuration after cloning packer.nvim
