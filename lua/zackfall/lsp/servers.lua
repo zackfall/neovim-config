@@ -62,12 +62,105 @@ for _, server in ipairs(langservers) do
   require('lsp_signature').setup({ hi_parameter = "IncSearch" })
 end
 
+require('rust-tools').setup{
+  tools = { -- rust-tools options
+    autoSetHints = true,
+    hover_with_actions = true,
+    inlay_hints = {
+      show_parameter_hints = false,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+    },
+  },
+
+  -- all the opts to send to nvim-lspconfig
+  -- these override the defaults set by rust-tools.nvim
+  -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
+  server = {
+    capabilities = capabilities,
+    settings = {
+      -- to enable rust-analyzer settings visit:
+      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+      ["rust-analyzer"] = {
+        -- enable clippy on save
+        checkOnSave = {
+          command = "clippy"
+        },
+      },
+    }
+  },
+}
+
 require('goto-preview').setup {}
 
 require('lspconfig').sqls.setup{
     on_attach = function(client, bufnr)
         require('sqls').on_attach(client, bufnr)
     end
+}
+
+require('lspconfig').diagnosticls.setup {
+  on_attach = on_attach,
+  filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'pandoc' },
+  init_options = {
+    linters = {
+      eslint = {
+        command = 'eslint_d',
+        rootPatterns = { '.git' },
+        debounce = 100,
+        args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
+        sourceName = 'eslint_d',
+        parseJson = {
+          errorsRoot = '[0].messages',
+          line = 'line',
+          column = 'column',
+          endLine = 'endLine',
+          endColumn = 'endColumn',
+          message = '[eslint] ${message} [${ruleId}]',
+          security = 'severity'
+        },
+        securities = {
+          [2] = 'error',
+          [1] = 'warning'
+        }
+      },
+    },
+    filetypes = {
+      javascript = 'eslint',
+      javascriptreact = 'eslint',
+      typescript = 'eslint',
+      typescriptreact = 'eslint',
+    },
+    formatters = {
+      eslint_d = {
+        command = 'eslint_d',
+        rootPatterns = { '.git' },
+        args = { '--stdin', '--stdin-filename', '%filename', '--fix-to-stdout' }
+      },
+      prettier = {
+        command = 'prettier_d_slim',
+        rootPatterns = { '.git' },
+        -- requiredFiles: { 'prettier.config.js' },
+        args = { '--stdin', '--stdin-filepath', '%filename' }
+      },
+      rustfmt = {
+        command = 'rustfmt',
+        rootPatterns = { '.git' }
+      }
+    },
+    formatFiletypes = {
+      css = 'prettier',
+      javascript = 'prettier',
+      javascriptreact = 'prettier',
+      json = 'prettier',
+      scss = 'prettier',
+      less = 'prettier',
+      typescript = 'prettier',
+      typescriptreact = 'prettier',
+      json = 'prettier',
+      rust = 'rustfmt'
+    }
+  }
 }
 
 vim.diagnostic.config(config)
