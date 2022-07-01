@@ -240,6 +240,10 @@ which_key.register({
 			"<cmd>Telescope find_files<CR>",
 			"Fuzzy Find Files",
 		},
+    p = {
+      "<cmd>Telescope projects<CR>",
+      "Find Projects"
+    }
 	},
 }, { prefix = "<leader>" })
 
